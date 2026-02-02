@@ -2,18 +2,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Salon Appointment Booking</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<title>Salon Booking</title>
+<style>
+body{margin:0;font-family:Segoe UI;background:#111;color:white}
+.hero{height:100vh;display:flex;align-items:center;justify-content:center;text-align:center}
+.hero h1{font-size:48px;color:gold}
+.hero p{font-size:18px;color:#ccc}
+.btn{padding:12px 30px;background:gold;color:black;border:none;font-weight:bold;cursor:pointer}
+</style>
 </head>
 <body>
+<div class="hero">
+  <div>
+    <h1>Luxury Salon Experience</h1>
+    <p>Book your style. Own your confidence.</p>
 
-<div class="container text-center mt-5">
-    <h1 class="fw-bold">Welcome to Salon Appointment Booking</h1>
-    <p class="text-muted">Book salon services easily and quickly</p>
+  <a href="<%= request.getContextPath() %>/jsp/login.jsp">
 
-    <a href="jsp/login.jsp" class="btn btn-primary m-2">Login</a>
-    <a href="jsp/register.jsp" class="btn btn-outline-primary m-2">Register</a>
+        <button class="btn">Get Started</button>
+    </a>
+
+  </div>
 </div>
-
 </body>
 </html>

@@ -2,38 +2,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Register</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<title>Register</title>
+<style>
+body{background:#eee;font-family:Segoe UI}
+.form{width:420px;margin:60px auto;background:white;padding:25px;border-radius:10px}
+h3{text-align:center}
+input,select{width:100%;padding:10px;margin:8px 0}
+button{background:gold;border:none;padding:12px;width:100%;font-weight:bold}
+</style>
 </head>
-<body class="bg-light">
+<body>
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-5 card p-4 shadow">
-            <h3 class="text-center mb-3">Register</h3>
+<div class="form">
+<h3>Create Account</h3>
 
-            <form action="<%= request.getContextPath() %>/register" method="post">
+<form action="<%= request.getContextPath() %>/register" method="post">
 
-                <input type="text" name="name" class="form-control mb-3"
-                       placeholder="Full Name" required>
+<input name="name" placeholder="Full Name" required>
+<input name="email" placeholder="Email" required>
+<input name="password" type="password" placeholder="Password" required>
 
-                <input type="email" name="email" class="form-control mb-3"
-                       placeholder="Email" required>
+<select name="role" required>
+<option value="">Select Role</option>
+<option value="CUSTOMER">Customer</option>
+<option value="THERAPIST">Therapist</option>
+</select>
 
-                <input type="password" name="password" class="form-control mb-3"
-                       placeholder="Password" required>
+<button>Register</button>
+</form>
 
-                <select name="role" class="form-select mb-3">
-                    <option value="CUSTOMER">Customer</option>
-                    <option value="ADMIN">Admin</option>
-                    <option value="THERAPIST">Therapist</option>
-                </select>
-
-                <button class="btn btn-success w-100">Register</button>
-            </form>
-        </div>
-    </div>
 </div>
-
 </body>
 </html>

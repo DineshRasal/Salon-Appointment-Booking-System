@@ -1,30 +1,64 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="java.util.*, dao.ServiceDAO, model.Service" %>
+
+<%
+ServiceDAO serviceDAO = new ServiceDAO();
+List<Service> services = serviceDAO.getServices(1);   // salon id = 1
+%>
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Book Appointment</title>
-    <!-- You can include CSS files here if needed -->
+<title>Book Appointment</title>
+
+<style>
+body{background:#111;color:white;font-family:Segoe UI}
+.box{width:400px;margin:80px auto;background:#222;padding:25px;border-radius:12px}
+input,select{width:100%;padding:10px;margin:10px 0}
+button{width:100%;padding:12px;background:gold;color:black;font-weight:bold}
+</style>
+
 </head>
+
 <body>
+<div class="box">
 
-<%@ include file="navbar.jsp" %>
+<h2>Book Appointment</h2>
 
-<div class="container mt-4">
-    <h3>Book Appointment</h3>
+<form action="<%= request.getContextPath() %>/bookAppointment" method="post">
 
-    <form action="../bookAppointment" method="post" class="card p-4 shadow col-md-6">
-        <input type="number" name="therapistId" class="form-control mb-3" placeholder="Therapist ID" required>
-        <input type="number" name="serviceId" class="form-control mb-3" placeholder="Service ID" required>
+<!-- therapist temporary -->
+<input type="hidden" name="therapistId" value="1">
 
-        <input type="date" name="date" class="form-control mb-3" required>
-        <input type="time" name="time" class="form-control mb-3" required>
+<!-- ===== SERVICE DROPDOWN (VISIBLE) ===== -->
+<label>Select Service</label>
 
-        <button class="btn btn-primary">Confirm Booking</button>
-    </form>
+<select name="serviceId" required>
+
+<option value="">-- Choose Service --</option>
+
+<%
+for(Service s : services){
+%>
+
+<option value="<%= s.getServiceId() %>">
+<%= s.getName() %> - ₹<%= s.getPrice() %>
+</option>
+
+<%
+}
+%>
+
+</select>
+
+<input type="date" name="date" required>
+
+<input type="time" name="time" required>
+
+<button type="submit">Confirm Booking</button>
+
+</form>
+
 </div>
-
-<%@ include file="footer.jsp" %>
-
 </body>
 </html>

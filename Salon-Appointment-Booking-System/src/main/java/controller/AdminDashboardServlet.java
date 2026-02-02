@@ -1,24 +1,29 @@
 package controller;
-
 import java.io.IOException;
-import jakarta.servlet.*;
-import jakarta.servlet.http.*;
+
+import dao.AppointmentDAO;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import model.User;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/adminDashboard")
 public class AdminDashboardServlet extends HttpServlet {
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+protected void doGet(HttpServletRequest request,
+HttpServletResponse response)
+throws ServletException, IOException {
 
-        User user = (User) request.getSession().getAttribute("user");
-        if (user == null || !"ADMIN".equals(user.getRole())) {
-            response.sendRedirect("jsp/login.jsp");
-            return;
-        }
+AppointmentDAO dao = new AppointmentDAO();
 
-        request.getRequestDispatcher("jsp/adminDashboard.jsp")
-               .forward(request, response);
-    }
+request.setAttribute(
+"appointments",
+dao.getAllAppointments()
+);
+
+request.getRequestDispatcher(
+"jsp/adminDashboard.jsp"
+).forward(request, response);
+}
 }

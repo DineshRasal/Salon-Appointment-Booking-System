@@ -10,21 +10,46 @@ import model.User;
 @WebServlet("/approveAppointment")
 public class ApproveAppointmentServlet extends HttpServlet {
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+protected void doPost(HttpServletRequest request,
+HttpServletResponse response)
+throws ServletException, IOException {
 
-        User user = (User) request.getSession().getAttribute("user");
-        if (user == null || !"ADMIN".equals(user.getRole())) {
-            response.sendRedirect("jsp/login.jsp");
-            return;
-        }
+HttpSession session = request.getSession(false);
 
-        int appointmentId = Integer.parseInt(request.getParameter("id"));
-        String status = request.getParameter("status");
+if (session == null) {
+response.sendRedirect("jsp/login.jsp");
+return;
+}
 
-        AppointmentDAO dao = new AppointmentDAO();
-        dao.updateStatus(appointmentId, status);
+User user = (User) session.getAttribute("user");
 
-        response.sendRedirect("adminDashboard");
-    }
+if (user == null ||
+user.getRole() == null ||
+!"ADMIN".equals(user.getRole())) {
+
+response.sendRedirect("jsp/login.jsp");
+return;
+}
+
+// ---- SAFE PARAM READ ----
+
+String idParam = request.getParameter("id");
+String status = request.getParameter("status");
+
+if (idParam == null || status == null) {
+response.sendRedirect("adminDashboard?error=invalid");
+return;
+}
+
+int appointmentId = Integer.parseInt(idParam);
+
+// ---- UPDATE ----
+
+AppointmentDAO dao = new AppointmentDAO();
+
+boolean updated =
+dao.updateStatus(appointmentId, status);
+
+response.sendRedirect("adminDashboard?updated=" + updated);
+}
 }

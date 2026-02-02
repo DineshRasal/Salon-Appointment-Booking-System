@@ -1,20 +1,41 @@
 package model;
 
 public class Appointment {
-    private int appointmentId;
-    private String date;
-    private String time;
-    private String status;
 
-    public int getAppointmentId() { return appointmentId; }
-    public void setAppointmentId(int appointmentId) { this.appointmentId = appointmentId; }
+private int appointmentId;
+private String date;
+private String time;
+private String status;
 
-    public String getDate() { return date; }
-    public void setDate(String date) { this.date = date; }
+public int getAppointmentId() {
+return appointmentId;
+}
 
-    public String getTime() { return time; }
-    public void setTime(String time) { this.time = time; }
+public void setAppointmentId(int id){
+this.appointmentId=id;
+}
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+public String getDate(){
+return date;
+}
+
+public void setDate(String d){
+this.date=d;
+}
+
+public String getTime(){
+return time;
+}
+
+public void setTime(String t){
+this.time=t;
+}
+
+public String getStatus(){
+return status;
+}
+
+public void setStatus(String s){
+this.status=s;
+}
 }
